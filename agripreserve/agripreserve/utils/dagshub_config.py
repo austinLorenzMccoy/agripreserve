@@ -26,41 +26,53 @@ DAGSHUB_REMOTE_URL = os.getenv("DAGSHUB_REMOTE_URL", f"https://dagshub.com/{DAGS
 
 def setup_dagshub_environment():
     """Set up the DAGsHub environment variables for DVC and MLflow."""
-    # Set environment variables for DAGsHub
-    os.environ["MLFLOW_TRACKING_URI"] = MLFLOW_TRACKING_URI
-    os.environ["MLFLOW_TRACKING_USERNAME"] = MLFLOW_TRACKING_USERNAME
-    os.environ["MLFLOW_TRACKING_PASSWORD"] = MLFLOW_TRACKING_PASSWORD
-    
-    # Set up basic authentication for MLflow
-    import mlflow
-    mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
-    
-    # Set up HTTP basic auth
-    from urllib.request import HTTPBasicAuthHandler, build_opener
-    auth_handler = HTTPBasicAuthHandler()
-    auth_handler.add_password(realm='DAGsHub',
-                             uri=MLFLOW_TRACKING_URI,
-                             user=MLFLOW_TRACKING_USERNAME,
-                             passwd=MLFLOW_TRACKING_PASSWORD)
-    opener = build_opener(auth_handler)
-    mlflow.utils.rest_utils.http_request = opener.open
-    
-    print(f"DAGsHub environment configured for user: {DAGSHUB_USERNAME}")
-    print(f"MLflow tracking URI: {MLFLOW_TRACKING_URI}")
-    print(f"MLflow authentication set up with username: {MLFLOW_TRACKING_USERNAME}")
-    
-    # Disable SSL verification if needed (only for testing)
-    import ssl
     try:
-        _create_unverified_https_context = ssl._create_unverified_context
-    except AttributeError:
-        pass
-    else:
-        ssl._create_default_https_context = _create_unverified_https_context
-        print("Warning: SSL verification disabled for testing purposes only.")
-        print("Re-enable SSL verification in production environments.")
+        # Use the dagshub Python client for easy integration
+        import dagshub
         
-    # For DVC
-    os.environ["DAGSHUB_USERNAME"] = DAGSHUB_USERNAME
-    os.environ["DAGSHUB_TOKEN"] = DAGSHUB_TOKEN
-    os.environ["DAGSHUB_REPO_URL"] = f"https://dagshub.com/{DAGSHUB_USERNAME}/{DAGSHUB_REPO}.git"
+        # Login with DAGsHub credentials
+        dagshub.auth.add_app_token(DAGSHUB_TOKEN)
+        
+        # Set up MLflow tracking
+        dagshub.init(repo_owner=DAGSHUB_USERNAME, repo_name=DAGSHUB_REPO, mlflow=True)
+        
+        print(f"DAGsHub environment configured for user: {DAGSHUB_USERNAME}")
+        print(f"MLflow tracking URI: {MLFLOW_TRACKING_URI}")
+        print(f"Using dagshub Python client for authentication")
+        
+        # Disable SSL verification if needed (only for testing)
+        import ssl
+        try:
+            _create_unverified_https_context = ssl._create_unverified_context
+        except AttributeError:
+            pass
+        else:
+            ssl._create_default_https_context = _create_unverified_https_context
+            print("Warning: SSL verification disabled for testing purposes only.")
+            print("Re-enable SSL verification in production environments.")
+            
+        # For DVC
+        os.environ["DAGSHUB_USERNAME"] = DAGSHUB_USERNAME
+        os.environ["DAGSHUB_TOKEN"] = DAGSHUB_TOKEN
+        os.environ["DAGSHUB_REPO_URL"] = f"https://dagshub.com/{DAGSHUB_USERNAME}/{DAGSHUB_REPO}.git"
+        
+        return True
+    except Exception as e:
+        print(f"Error setting up DAGsHub environment: {str(e)}")
+        
+        # Fall back to manual environment variables
+        os.environ["MLFLOW_TRACKING_URI"] = MLFLOW_TRACKING_URI
+        os.environ["MLFLOW_TRACKING_USERNAME"] = MLFLOW_TRACKING_USERNAME
+        os.environ["MLFLOW_TRACKING_PASSWORD"] = MLFLOW_TRACKING_PASSWORD
+        
+        # For DVC
+        os.environ["DAGSHUB_USERNAME"] = DAGSHUB_USERNAME
+        os.environ["DAGSHUB_TOKEN"] = DAGSHUB_TOKEN
+        
+        print(f"Falling back to manual environment configuration")
+        print(f"MLflow tracking URI: {MLFLOW_TRACKING_URI}")
+        
+        # Set the repo URL
+        os.environ["DAGSHUB_REPO_URL"] = f"https://dagshub.com/{DAGSHUB_USERNAME}/{DAGSHUB_REPO}.git"
+        
+        return False
