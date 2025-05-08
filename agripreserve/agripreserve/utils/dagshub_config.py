@@ -5,8 +5,10 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
-env_path = Path(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))).joinpath('.env')
+env_path = Path(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))).joinpath('.env')
 load_dotenv(dotenv_path=env_path)
+print(f"Loading .env from: {env_path} (exists: {env_path.exists()})")
+
 
 # DAGsHub credentials from environment variables
 DAGSHUB_USERNAME = os.getenv("DAGSHUB_USERNAME", "")
