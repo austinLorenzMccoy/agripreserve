@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="32" cy="32" r="30" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+  
+  <!-- Leaf Shape -->
+  <path d="M32,12 C45,12 52,25 52,38 C38,45 25,38 18,25 C25,18 25,12 32,12 Z" 
+        fill="#4CAF50" stroke="#2E7D32" stroke-width="1"/>
+  
+  <!-- Grain/Wheat Symbol -->
+  <path d="M32,22 L32,52 M27,28 L37,28 M25,35 L39,35 M27,42 L37,42"
+        stroke="#2E7D32" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Water Drop -->
+  <path d="M45,28 C45,35 38,38 38,32 C38,28 42,25 45,28 Z"
+        fill="#2196F3" stroke="#1976D2" stroke-width="0.5"/>
+</svg>

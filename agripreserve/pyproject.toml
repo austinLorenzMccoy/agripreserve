@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agripreserve"
-version = "0.1.0"
-description = "A package for analyzing post-harvest losses in Nigeria with DVC and MLflow integration"
+version = "0.2.0"
+description = "A comprehensive platform for analyzing post-harvest losses in Nigeria with DVC and MLflow integration, featuring a React frontend"
 readme = "README.md"
 authors = [
     {name = "AgriPreserve Team", email = "info@agripreserve.org"}
@@ -22,7 +22,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
-keywords = ["agriculture", "post-harvest", "nigeria", "data analysis", "mlflow", "dvc", "dagshub"]
+keywords = ["agriculture", "post-harvest", "nigeria", "data analysis", "mlflow", "dvc", "dagshub", "react", "frontend"]
 dependencies = [
     # Web and API
     "fastapi>=0.100.0",
@@ -30,6 +30,7 @@ dependencies = [
     "gradio>=3.50.0",
     "python-multipart>=0.0.6",
     "pydantic>=2.0.0",
+    "jsonschema>=4.0.0",
     
     # Data analysis and visualization
     "pandas>=2.1.0",
@@ -59,6 +60,8 @@ dev = [
     "pytest-cov>=4.0.0",
     "black>=23.0.0",
     "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
 ]
 
 [project.urls]
@@ -84,3 +87,15 @@ testpaths = ["tests"]
 python_files = "test_*.py"
 python_functions = "test_*"
 addopts = "--cov=agripreserve --cov-report=term-missing"
+
+[tool.flake8]
+max-line-length = 100
+extend-ignore = ["E203"]
+exclude = [".git", "__pycache__", "build", "dist"]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true

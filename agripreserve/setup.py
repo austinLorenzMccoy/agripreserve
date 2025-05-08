@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="agripreserve",
-    version="0.1.0",
+    version="0.2.0",
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
@@ -14,6 +14,7 @@ setup(
         "gradio>=3.50.0",
         "python-multipart>=0.0.6",
         "pydantic>=2.0.0",
+        "jsonschema>=4.0.0",
         
         # Data analysis and visualization
         "pandas>=2.1.0",
@@ -41,6 +42,8 @@ setup(
             "pytest-cov>=4.0.0",
             "black>=23.0.0",
             "isort>=5.12.0",
+            "flake8>=6.0.0",
+            "mypy>=1.0.0",
         ],
     },
     entry_points={
@@ -50,8 +53,8 @@ setup(
     },
     author="AgriPreserve Team",
     author_email="info@agripreserve.org",
-    description="A package for analyzing post-harvest losses in Nigeria with DVC and MLflow integration",
-    keywords="agriculture, post-harvest, nigeria, data analysis, mlflow, dvc, dagshub",
+    description="A comprehensive platform for analyzing post-harvest losses in Nigeria with DVC and MLflow integration, featuring a React frontend",
+    keywords="agriculture, post-harvest, nigeria, data analysis, mlflow, dvc, dagshub, react, frontend",
     url="https://github.com/agripreserve/agripreserve",
     classifiers=[
         "Development Status :: 3 - Alpha",
