@@ -1,0 +1,5 @@
+outs:
+- md5: a1e60e5256bfbf45d745c654eb50f0e3
+  size: 333546
+  hash: md5
+  path: loss_prediction_random_forest.joblib
