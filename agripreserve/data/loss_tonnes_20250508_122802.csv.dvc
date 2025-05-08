@@ -1,0 +1,5 @@
+outs:
+- md5: 4193238a84cc8a828a894436302ee38b
+  size: 2760
+  hash: md5
+  path: loss_tonnes_20250508_122802.csv
