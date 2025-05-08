@@ -8,7 +8,7 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 <p align="center">
-  <img src="./frontend/public/assets/logo.svg" alt="AgriPreserve Logo" width="200"/>
+  <img src="./assets/logo.svg" alt="AgriPreserve Logo" width="200"/>
 </p>
 
 **Reducing post-harvest losses through data-driven insights and smart storage solutions**
