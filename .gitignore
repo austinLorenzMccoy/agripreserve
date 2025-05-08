@@ -46,6 +46,9 @@ mlruns/
 mlflow-artifacts/
 mlflow.db
 
+# Gradio
+.gradio/
+
 # DVC - we version the .dvc files but not the actual data
 /data/
 /metrics/
