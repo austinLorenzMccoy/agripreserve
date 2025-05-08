@@ -10,7 +10,7 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 from agripreserve.data.loader import load_datasets
 from agripreserve.models.loss_prediction_model import LossPredictionModel
-from agripreserve.utils.metrics_tracker import setup_dagshub_credentials
+from agripreserve.utils.dagshub_config import setup_dagshub_environment
 from agripreserve.utils.dvc_utils import track_file
 
 
@@ -19,8 +19,8 @@ def main():
     print("Loading datasets...")
     loss_percentage_df, loss_tonnes_df = load_datasets()
     
-    # Set up DAGsHub credentials if available
-    setup_dagshub_credentials()
+    # Set up DAGsHub environment
+    setup_dagshub_environment()
     
     # Create model directory if it doesn't exist
     model_dir = Path(__file__).parent.parent / "agripreserve" / "models"

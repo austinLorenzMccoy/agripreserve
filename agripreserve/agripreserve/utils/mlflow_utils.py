@@ -21,7 +21,9 @@ def setup_mlflow_tracking(
     if tracking_uri:
         mlflow.set_tracking_uri(tracking_uri)
     elif os.environ.get("MLFLOW_TRACKING_URI"):
-        mlflow.set_tracking_uri(os.environ.get("MLFLOW_TRACKING_URI"))
+        tracking_uri = os.environ.get("MLFLOW_TRACKING_URI")
+        mlflow.set_tracking_uri(tracking_uri)
+        print(f"Using MLflow tracking URI from environment: {tracking_uri}")
     
     # Set or create the experiment
     try:

@@ -9,7 +9,8 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
 from agripreserve.data.loader import load_datasets
-from agripreserve.utils.metrics_tracker import MetricsTracker, setup_dagshub_credentials
+from agripreserve.utils.metrics_tracker import MetricsTracker
+from agripreserve.utils.dagshub_config import setup_dagshub_environment
 
 
 def main():
@@ -17,11 +18,11 @@ def main():
     print("Loading datasets...")
     loss_percentage_df, loss_tonnes_df = load_datasets()
     
-    # Set up DAGsHub credentials if available
-    setup_dagshub_credentials()
+    # Set up DAGsHub environment
+    setup_dagshub_environment()
     
-    # Replace with your actual DAGsHub repository URL
-    dagshub_repo_url = os.environ.get("DAGSHUB_REPO_URL", "https://github.com/austinLorenzMccoy/agripreserve.git")
+    # Get DAGsHub repository URL from environment
+    dagshub_repo_url = os.environ.get("DAGSHUB_REPO_URL")
     
     # Create metrics tracker
     metrics_dir = Path(__file__).parent.parent / "metrics"
