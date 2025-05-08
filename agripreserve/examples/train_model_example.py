@@ -4,9 +4,15 @@ import os
 import sys
 import pandas as pd
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Add the parent directory to the path so we can import the agripreserve package
 sys.path.append(str(Path(__file__).parent.parent))
+
+# Load environment variables from .env file
+env_path = Path(__file__).parent.parent.parent / '.env'
+load_dotenv(dotenv_path=env_path)
+print(f"Loading .env from: {env_path} (exists: {env_path.exists()})")
 
 from agripreserve.data.loader import load_datasets
 from agripreserve.models.loss_prediction_model import LossPredictionModel
