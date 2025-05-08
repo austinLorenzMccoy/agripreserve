@@ -193,30 +193,38 @@ curl http://localhost:8000/api/high-opportunity-areas?limit=5
 curl http://localhost:8000/api/crop-comparison
 ```
 
-## 📊 Project Structure
+## 📂 Project Structure
+
+> **Note:** The main folder has been renamed from "agripreserve" to "backend" for better organization, but the internal package structure remains the same.
 
 ```
-agripreserve/
-├── agripreserve/
-│   ├── __init__.py
-│   ├── __main__.py
-│   ├── cli.py
-│   ├── api/
+DSA_hackathon/
+├── backend/               
+│   ├── agripreserve/      # Internal package structure
 │   │   ├── __init__.py
-│   │   ├── routes.py
-│   │   └── server.py
-│   ├── data/
-│   │   ├── __init__.py
-│   │   └── loader.py
-│   ├── models/
-│   │   └── __init__.py
-│   ├── ui/
-│   │   ├── __init__.py
-│   │   └── gradio_app.py
-│   └── utils/
-│       └── __init__.py
-├── setup.py
-├── pyproject.toml
+│   │   ├── __main__.py
+│   │   ├── cli.py
+│   │   ├── api/
+│   │   │   ├── __init__.py
+│   │   │   ├── routes.py
+│   │   │   └── server.py
+│   │   ├── data/
+│   │   │   ├── __init__.py
+│   │   │   └── loader.py
+│   │   ├── models/
+│   │   │   └── __init__.py
+│   │   ├── ui/
+│   │   │   ├── __init__.py
+│   │   │   └── gradio_app.py
+│   │   └── utils/
+│   │       └── __init__.py
+│   ├── tests/
+│   ├── examples/
+│   └── data/
+├── frontend/              # React TypeScript frontend
+│   ├── src/
+│   ├── public/
+│   └── package.json
 └── README.md
 ```
 
@@ -367,7 +375,7 @@ AgriPreserve consists of two main components that need to be deployed: the backe
    - Name: `agripreserve-api`
    - Environment: `Python 3`
    - Build Command: `pip install -r requirements.txt`
-   - Start Command: `cd agripreserve && uvicorn api.main:app --host 0.0.0.0 --port $PORT`
+   - Start Command: `cd backend && uvicorn api.main:app --host 0.0.0.0 --port $PORT`
 
 3. Add Environment Variables:
    - Click on "Environment" tab
@@ -392,7 +400,7 @@ AgriPreserve consists of two main components that need to be deployed: the backe
 
 3. Add a Procfile to the root directory:
    ```
-   web: cd agripreserve && uvicorn api.main:app --host=0.0.0.0 --port=$PORT
+   web: cd backend && uvicorn api.main:app --host=0.0.0.0 --port=$PORT
    ```
 
 4. Deploy the application:
