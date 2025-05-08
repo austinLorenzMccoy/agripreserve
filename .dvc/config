@@ -1,5 +1,9 @@
 [core]
-    remote = dagshub
-['remote "dagshub"']
-    url = https://dagshub.com/austinLorenzMccoy/agripreserve.dvc
-    ssl_verify = false
+    remote = dagshub_s3
+
+[remote "dagshub_s3"]
+    url = s3://agripreserve
+    endpointurl = https://dagshub.com/api/v1/repo-buckets/s3/austinLorenzMccoy
+    access_key_id = ${S3_ACCESS_KEY_ID}
+    secret_access_key = ${S3_SECRET_ACCESS_KEY}
+    region = us-east-1

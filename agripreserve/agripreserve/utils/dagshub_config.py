@@ -1,19 +1,25 @@
 """DAGsHub configuration for AgriPreserve."""
 
 import os
+from pathlib import Path
+from dotenv import load_dotenv
 
-# DAGsHub credentials
-DAGSHUB_USERNAME = "austinLorenzMccoy"
-DAGSHUB_TOKEN = "1d06b3f1dc94bb2bb3ed0960c7d406847b9d362d"
-DAGSHUB_REPO = "agripreserve"  # Update this to your new repository name
+# Load environment variables from .env file
+env_path = Path(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))).joinpath('.env')
+load_dotenv(dotenv_path=env_path)
+
+# DAGsHub credentials from environment variables
+DAGSHUB_USERNAME = os.getenv("DAGSHUB_USERNAME", "")
+DAGSHUB_TOKEN = os.getenv("DAGSHUB_TOKEN", "")
+DAGSHUB_REPO = os.getenv("DAGSHUB_REPO", "agripreserve")
 
 # MLflow tracking configuration
-MLFLOW_TRACKING_URI = f"https://dagshub.com/{DAGSHUB_USERNAME}/{DAGSHUB_REPO}.mlflow"
-MLFLOW_TRACKING_USERNAME = DAGSHUB_USERNAME
-MLFLOW_TRACKING_PASSWORD = DAGSHUB_TOKEN
+MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI", f"https://dagshub.com/{DAGSHUB_USERNAME}/{DAGSHUB_REPO}.mlflow")
+MLFLOW_TRACKING_USERNAME = os.getenv("MLFLOW_TRACKING_USERNAME", "dvc")
+MLFLOW_TRACKING_PASSWORD = os.getenv("MLFLOW_TRACKING_PASSWORD", DAGSHUB_TOKEN)
 
 # DVC remote configuration
-DAGSHUB_REMOTE_URL = f"https://dagshub.com/{DAGSHUB_USERNAME}/{DAGSHUB_REPO}.dvc"
+DAGSHUB_REMOTE_URL = os.getenv("DAGSHUB_REMOTE_URL", f"https://dagshub.com/{DAGSHUB_USERNAME}/{DAGSHUB_REPO}.dvc")
 
 
 def setup_dagshub_environment():
