@@ -8,18 +8,32 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
+        # Web and API
         "fastapi>=0.100.0",
         "uvicorn>=0.23.0",
         "gradio>=3.50.0",
+        "python-multipart>=0.0.6",
+        "pydantic>=2.0.0",
+        
+        # Data analysis and visualization
         "pandas>=2.1.0",
         "numpy>=1.26.0",
         "matplotlib>=3.8.0",
         "seaborn>=0.13.0",
         "plotly>=5.18.0",
-        "requests>=2.31.0",
+        
+        # Machine learning
         "scikit-learn>=1.3.0",
-        "python-multipart>=0.0.6",
-        "pydantic>=2.0.0",
+        
+        # HTTP and networking
+        "requests>=2.31.0",
+        
+        # DVC and MLflow for tracking metrics and models
+        "dvc>=3.0.0",
+        "dvc-gdrive>=2.20.0",
+        "mlflow>=2.10.0",
+        "dagshub>=0.5.0",
+        "python-dotenv>=0.19.0",
     ],
     extras_require={
         "dev": [
@@ -36,8 +50,8 @@ setup(
     },
     author="AgriPreserve Team",
     author_email="info@agripreserve.org",
-    description="A package for analyzing post-harvest losses in Nigeria",
-    keywords="agriculture, post-harvest, nigeria, data analysis",
+    description="A package for analyzing post-harvest losses in Nigeria with DVC and MLflow integration",
+    keywords="agriculture, post-harvest, nigeria, data analysis, mlflow, dvc, dagshub",
     url="https://github.com/agripreserve/agripreserve",
     classifiers=[
         "Development Status :: 3 - Alpha",
