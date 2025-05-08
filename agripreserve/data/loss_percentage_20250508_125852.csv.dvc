@@ -1,0 +1,5 @@
+outs:
+- md5: 7d9b631929b1536b64513d9181fdd538
+  size: 1752
+  hash: md5
+  path: loss_percentage_20250508_125852.csv
