@@ -45,6 +45,8 @@ AgriPreserve is a comprehensive Python package that provides data-driven insight
 - **Data Analysis**: Analyze post-harvest losses by crop, state, and region
 - **Visualization**: Generate interactive visualizations of loss data
 - **Summary Statistics**: Get comprehensive statistics on post-harvest losses
+- **Predictive Models**: Machine learning models to predict post-harvest losses
+- **Metrics Tracking**: Track metrics using DVC and MLflow with DAGsHub integration
 - **High-Opportunity Areas**: Identify areas with the highest potential for intervention
 - **Storage Recommendations**: Get smart storage recommendations based on crop, location, and duration
 - **Market Connections**: Find potential market connections for your crops
@@ -267,6 +269,85 @@ Contributions are welcome! Here's how you can contribute:
 5. Submit a pull request
 
 Please make sure your code passes all tests and follows the project's coding style.
+
+## Predictive Models
+
+AgriPreserve includes machine learning models to predict post-harvest losses based on various factors:
+
+- **Random Forest Model**: Provides accurate predictions by capturing complex relationships in the data
+- **Linear Regression Model**: Offers interpretable predictions with clear feature importance
+
+### Training the Models
+
+You can train the models using the provided example script:
+
+```bash
+python -m agripreserve.examples.train_model_example
+```
+
+This will train both models, track them with DVC and MLflow, and display example predictions.
+
+### Using the Models in Your Code
+
+```python
+from agripreserve.models.loss_prediction_model import LossPredictionModel
+
+# Load a trained model
+model = LossPredictionModel(model_type="random_forest")
+model.load()
+
+# Make predictions
+predicted_loss = model.predict(
+    state="Kano",
+    region="Northern",
+    crop="Maize",
+    loss_tonnes=1000
+)
+print(f"Predicted loss percentage: {predicted_loss:.2f}%")
+```
+
+## Metrics Tracking with DVC and MLflow
+
+AgriPreserve integrates with DVC and MLflow for data versioning and metrics tracking. This integration allows you to:
+
+- Version your datasets with DVC
+- Track experiment metrics with MLflow
+- Visualize metrics on DAGsHub
+
+### Setup
+
+1. Set up your DAGsHub credentials:
+
+```bash
+export DAGSHUB_TOKEN=your_token_here
+export DAGSHUB_REPO_URL=https://github.com/your-username/your-repo.git
+```
+
+2. Run the metrics tracking example:
+
+```bash
+python -m agripreserve.examples.track_metrics_example
+```
+
+3. View your metrics on DAGsHub by visiting your repository page.
+
+### Using in Your Code
+
+```python
+from agripreserve.utils.metrics_tracker import MetricsTracker, setup_dagshub_credentials
+
+# Set up credentials
+setup_dagshub_credentials()
+
+# Create tracker
+tracker = MetricsTracker(
+    experiment_name="your_experiment",
+    dagshub_repo_url="https://github.com/your-username/your-repo.git"
+)
+
+# Track metrics
+tracker.track_loss_metrics(loss_percentage_df, loss_tonnes_df)
+```
 
 ## 📃 License
 

@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agripreserve"
+version = "0.1.0"
+description = "A package for analyzing post-harvest losses in Nigeria"
+readme = "README.md"
+authors = [
+    {name = "AgriPreserve Team", email = "info@agripreserve.org"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+keywords = ["agriculture", "post-harvest", "nigeria", "data analysis"]
+dependencies = [
+    "fastapi>=0.100.0",
+    "uvicorn>=0.23.0",
+    "gradio>=3.50.0",
+    "pandas>=2.1.0",
+    "numpy>=1.26.0",
+    "matplotlib>=3.8.0",
+    "seaborn>=0.13.0",
+    "plotly>=5.18.0",
+    "requests>=2.31.0",
+    "scikit-learn>=1.3.0",
+    "python-multipart>=0.0.6",
+    "pydantic>=2.0.0",
+]
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/agripreserve/agripreserve"
+"Bug Tracker" = "https://github.com/agripreserve/agripreserve/issues"
+
+[project.scripts]
+agripreserve = "agripreserve.cli:main"
+
+[tool.setuptools]
+packages = ["agripreserve"]
+
+[tool.black]
+line-length = 100
+target-version = ["py38", "py39", "py310", "py311", "py312"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
+addopts = "--cov=agripreserve --cov-report=term-missing"
