@@ -1,0 +1,5 @@
+outs:
+- md5: 2328976d55611199f60899e7589d524b
+  size: 3915
+  hash: md5
+  path: loss_prediction_linear.joblib
