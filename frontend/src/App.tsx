@@ -13,6 +13,7 @@ const StorageSolutions = lazy(() => import('./pages/StorageSolutions'));
 const MarketConnections = lazy(() => import('./pages/MarketConnections'));
 const MLflowDashboard = lazy(() => import('./pages/MLflowDashboard'));
 const Settings = lazy(() => import('./pages/Settings'));
+const Profile = lazy(() => import('./pages/Profile'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Create a client for React Query
@@ -94,6 +95,7 @@ const App = () => {
               <Route path="market-connections" element={<MarketConnections />} />
               <Route path="mlflow-dashboard" element={<MLflowDashboard />} />
               <Route path="settings" element={<Settings />} />
+              <Route path="profile" element={<Profile />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
