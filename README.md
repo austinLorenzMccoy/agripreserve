@@ -24,6 +24,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [API Documentation](#api-documentation)
+- [System Architecture](#system-architecture)
 - [Data Sources](#data-sources)
 - [Testing](#testing)
 - [Deployment](#deployment)
@@ -60,29 +61,38 @@ AgriPreserve is a comprehensive Python package that provides data-driven insight
 
 ## 🗂️ Project Structure
 
+The AgriPreserve project is organized into two main components: a Python backend and a React TypeScript frontend.
+
 ```
-agripreserve/
-├── agripreserve/
-│   ├── __init__.py
-│   ├── __main__.py
-│   ├── cli.py
-│   ├── api/
+AgriPreserve/
+├── backend/               # Python FastAPI backend
+│   ├── agripreserve/      # Core package
 │   │   ├── __init__.py
-│   │   ├── routes.py
-│   │   └── server.py
-│   ├── data/
-│   │   ├── __init__.py
-│   │   └── loader.py
-│   ├── models/
-│   │   └── __init__.py
-│   ├── ui/
-│   │   ├── __init__.py
-│   │   └── gradio_app.py
-│   └── utils/
-│       └── __init__.py
-├── setup.py
-├── pyproject.toml
-└── README.md
+│   │   ├── __main__.py
+│   │   ├── cli.py
+│   │   ├── api/           # FastAPI routes and server
+│   │   ├── data/          # Data loading and processing
+│   │   ├── models/        # ML models
+│   │   └── utils/         # Helper functions
+│   ├── tests/             # Unit and integration tests
+│   ├── examples/          # Example scripts
+│   ├── pyproject.toml     # Project dependencies
+│   ├── setup.py           # Package setup
+│   └── render.py          # Render deployment script
+├── frontend/             # React TypeScript frontend
+│   ├── src/
+│   │   ├── api/          # API service layer
+│   │   ├── components/   # Reusable UI components
+│   │   ├── context/      # React context providers
+│   │   ├── hooks/        # Custom React hooks
+│   │   ├── pages/        # Application pages/routes
+│   │   ├── theme/        # UI theming
+│   │   ├── types/        # TypeScript type definitions
+│   │   └── utils/        # Helper utilities
+│   ├── public/           # Static assets
+│   └── package.json      # Frontend dependencies
+├── .env                  # Environment variables
+└── README.md            # Project documentation
 ```
 
 ## 📦 Installation
@@ -199,40 +209,52 @@ curl http://localhost:8000/api/high-opportunity-areas?limit=5
 curl http://localhost:8000/api/crop-comparison
 ```
 
-## 📂 Project Structure
+## 📊 System Architecture
 
-> **Note:** The main folder has been renamed from "agripreserve" to "backend" for better organization, but the internal package structure remains the same.
+The AgriPreserve system uses a modern architecture with a clear separation between frontend and backend components, integrated with data science tools for analytics and model tracking.
 
+```mermaid
+graph TD
+    subgraph "Frontend - React TypeScript"
+        UI[User Interface] --> Components[React Components];
+        Components --> Hooks[Custom Hooks];
+        Components --> Context[Context Providers];
+        Hooks --> APIService[API Service Layer];
+        Context --> APIService;
+    end
+
+    subgraph "Backend - FastAPI Python"
+        APIRoutes[API Routes] --> DataProcessing[Data Processing];
+        APIRoutes --> MLModels[ML Models];
+        DataProcessing --> DataLoader[Data Loader];
+        MLModels --> Predictions[Prediction Engine];
+        DataLoader --> Database[(Data Storage)];
+    end
+
+    subgraph "DevOps & Monitoring"
+        MLflow[MLflow Tracking] --> Metrics[(Metrics Storage)];
+        DVC[Data Version Control] --> DataVersions[(Versioned Data)];
+        DAGsHub[DAGsHub Integration] --> MLflow;
+        DAGsHub --> DVC;
+    end
+
+    APIService --"HTTP Requests"--> APIRoutes;
+    MLModels --"Model Metrics"--> MLflow;
+    DataLoader --"Version Control"--> DVC;
+
+    subgraph "Deployment"
+        RenderFrontend[Render Frontend] --> UIDeployed[Frontend App];
+        RenderBackend[Render Backend] --> APIDeployed[API Service];
+        UIDeployed --"API Calls"--> APIDeployed;
+    end
 ```
-DSA_hackathon/
-├── backend/               
-│   ├── agripreserve/      # Internal package structure
-│   │   ├── __init__.py
-│   │   ├── __main__.py
-│   │   ├── cli.py
-│   │   ├── api/
-│   │   │   ├── __init__.py
-│   │   │   ├── routes.py
-│   │   │   └── server.py
-│   │   ├── data/
-│   │   │   ├── __init__.py
-│   │   │   └── loader.py
-│   │   ├── models/
-│   │   │   └── __init__.py
-│   │   ├── ui/
-│   │   │   ├── __init__.py
-│   │   │   └── gradio_app.py
-│   │   └── utils/
-│   │       └── __init__.py
-│   ├── tests/
-│   ├── examples/
-│   └── data/
-├── frontend/              # React TypeScript frontend
-│   ├── src/
-│   ├── public/
-│   └── package.json
-└── README.md
-```
+
+This architecture enables:
+
+- **Clear Separation of Concerns**: Frontend and backend are decoupled but communicate through a well-defined API
+- **Data Science Integration**: MLflow and DVC provide robust tracking of models and datasets
+- **Scalable Deployment**: Both frontend and backend are deployed independently on Render
+- **Responsive UI**: React with Material UI provides a modern, responsive interface
 
 ## 📊 Data Sources
 
