@@ -8,7 +8,7 @@ const storageOptions = [
     name: 'Cold Storage',
     description: 'Temperature-controlled storage for extending shelf life of perishable crops',
     suitableCrops: ['Apples', 'Potatoes', 'Carrots', 'Cabbage'],
-    costRange: '$$$',
+    costRange: '₦₦₦',
     efficiency: 85,
     implementationTime: 'Medium',
     maintenanceCost: 'High',
@@ -19,7 +19,7 @@ const storageOptions = [
     name: 'Controlled Atmosphere Storage',
     description: 'Adjusts oxygen, carbon dioxide, and nitrogen levels to slow ripening',
     suitableCrops: ['Apples', 'Pears', 'Berries', 'Cherries'],
-    costRange: '$$$$',
+    costRange: '₦₦₦₦',
     efficiency: 92,
     implementationTime: 'Long',
     maintenanceCost: 'High',
@@ -30,7 +30,7 @@ const storageOptions = [
     name: 'Evaporative Cooling',
     description: 'Low-cost cooling system using water evaporation to reduce temperature',
     suitableCrops: ['Tomatoes', 'Leafy Greens', 'Cucumbers', 'Peppers'],
-    costRange: '$',
+    costRange: '₦',
     efficiency: 70,
     implementationTime: 'Short',
     maintenanceCost: 'Low',
@@ -41,7 +41,7 @@ const storageOptions = [
     name: 'Zero Energy Cool Chamber',
     description: 'Brick and sand structure that maintains coolness without electricity',
     suitableCrops: ['Potatoes', 'Onions', 'Tomatoes', 'Leafy Vegetables'],
-    costRange: '$',
+    costRange: '₦',
     efficiency: 65,
     implementationTime: 'Short',
     maintenanceCost: 'Very Low',
@@ -52,7 +52,7 @@ const storageOptions = [
     name: 'Modified Atmosphere Packaging',
     description: 'Special packaging that alters air composition around produce',
     suitableCrops: ['Berries', 'Cut Vegetables', 'Fresh Herbs', 'Mushrooms'],
-    costRange: '$$',
+    costRange: '₦₦',
     efficiency: 78,
     implementationTime: 'Short',
     maintenanceCost: 'Medium',
@@ -63,7 +63,7 @@ const storageOptions = [
     name: 'Underground Storage',
     description: 'Traditional method using natural cooling and insulation of the earth',
     suitableCrops: ['Root Vegetables', 'Potatoes', 'Onions', 'Garlic'],
-    costRange: '$$',
+    costRange: '₦₦',
     efficiency: 75,
     implementationTime: 'Medium',
     maintenanceCost: 'Low',
@@ -172,9 +172,9 @@ const StorageSolutions = () => {
               className={`w-full p-2 rounded border ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
             >
               <option value="all">All Price Ranges</option>
-              <option value="low">Low Cost ($)</option>
-              <option value="medium">Medium Cost ($$)</option>
-              <option value="high">High Cost ($$$+)</option>
+              <option value="low">Low Cost (₦)</option>
+              <option value="medium">Medium Cost (₦₦)</option>
+              <option value="high">High Cost (₦₦₦+)</option>
             </select>
           </div>
           

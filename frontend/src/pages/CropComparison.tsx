@@ -128,8 +128,8 @@ const CropComparison = () => {
                 <th className="px-4 py-2 text-left">Storage Life (days)</th>
                 <th className="px-4 py-2 text-left">Optimal Temperature</th>
                 <th className="px-4 py-2 text-left">Optimal Humidity</th>
-                <th className="px-4 py-2 text-left">Cost ($/kg)</th>
-                <th className="px-4 py-2 text-left">Market Value ($/kg)</th>
+                <th className="px-4 py-2 text-left">Cost (₦/kg)</th>
+                <th className="px-4 py-2 text-left">Market Value (₦/kg)</th>
                 <th className="px-4 py-2 text-left">Profit Margin</th>
               </tr>
             </thead>
@@ -141,8 +141,8 @@ const CropComparison = () => {
                   <td className="px-4 py-3">{crop.storageLife}</td>
                   <td className="px-4 py-3">{crop.optimalTemp}</td>
                   <td className="px-4 py-3">{crop.optimalHumidity}</td>
-                  <td className="px-4 py-3">${crop.costPerKg.toFixed(2)}</td>
-                  <td className="px-4 py-3">${crop.marketValue.toFixed(2)}</td>
+                  <td className="px-4 py-3">₦{crop.costPerKg.toFixed(2)}</td>
+                  <td className="px-4 py-3">₦{crop.marketValue.toFixed(2)}</td>
                   <td className="px-4 py-3">
                     {((crop.marketValue - crop.costPerKg) / crop.costPerKg * 100).toFixed(1)}%
                   </td>
@@ -170,11 +170,11 @@ const CropComparison = () => {
                 <div className="mt-4 space-y-2">
                   <div className="flex justify-between">
                     <span className="text-gray-500">Monthly Loss Value:</span>
-                    <span className="font-medium">${lossValue}</span>
+                    <span className="font-medium">₦{lossValue}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-500">Potential Monthly Savings:</span>
-                    <span className="font-medium text-green-500">${potentialSavings}</span>
+                    <span className="font-medium text-green-500">₦{potentialSavings}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-500">ROI on Prevention:</span>
