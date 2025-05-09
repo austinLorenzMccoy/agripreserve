@@ -17,6 +17,7 @@
 
 - [Overview](#overview)
 - [Problem Statement](#problem-statement)
+- [Live Application](#live-application)
 - [Our Solution](#our-solution)
 - [Key Features](#key-features)
 - [Project Structure](#project-structure)
@@ -36,6 +37,11 @@ AgriPreserve provides tools for analyzing and visualizing post-harvest losses ac
 ## 🚨 Problem Statement
 
 Nigeria loses 30-50% of agricultural produce annually due to poor storage, transportation, and processing infrastructure, costing approximately $9 billion. These post-harvest losses (PHL) discourage youth participation in agriculture and represent a significant barrier to agricultural productivity and profitability.
+
+## 🌐 Live Application
+
+- **Frontend**: [https://agripreserve-frontend.onrender.com](https://agripreserve-frontend.onrender.com)
+- **Backend API**: [https://agripreserve-backend.onrender.com](https://agripreserve-backend.onrender.com)
 
 ## 🌟 Our Solution
 
@@ -451,12 +457,7 @@ AgriPreserve consists of two main components that need to be deployed: the backe
    netlify deploy --prod
    ```
 
-### Live Deployments
-
-AgriPreserve is deployed and accessible online:
-
-- **Frontend**: [https://agripreserve-frontend.onrender.com](https://agripreserve-frontend.onrender.com)
-- **Backend API**: [https://agripreserve-backend.onrender.com](https://agripreserve-backend.onrender.com)
+### Deployment Details
 
 ### Deployment Configuration
 
