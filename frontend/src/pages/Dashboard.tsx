@@ -289,7 +289,7 @@ const Dashboard = () => {
                   variant="outlined" 
                   color="primary" 
                   endIcon={<ArrowForwardIcon />}
-                  onClick={() => navigate('/loss-analysis')}
+                  onClick={() => navigate('/crop-comparison')}
                   sx={{ 
                     borderRadius: 2,
                     textTransform: 'none',
