@@ -390,94 +390,6 @@ tracker.track_loss_metrics(loss_percentage_df, loss_tonnes_df)
 
 AgriPreserve consists of two main components that need to be deployed: the backend API and the frontend application.
 
-### Backend Deployment
-
-#### Option 1: Deploy to Render
-
-1. Create a new Web Service on Render:
-   - Sign in to your Render account and go to the Dashboard
-   - Click on "New" and select "Web Service"
-   - Connect your GitHub repository
-
-2. Configure the Web Service:
-   - Name: `agripreserve-api`
-   - Environment: `Python 3`
-   - Build Command: `pip install -r requirements.txt`
-   - Start Command: `cd backend && uvicorn api.main:app --host 0.0.0.0 --port $PORT`
-
-3. Add Environment Variables:
-   - Click on "Environment" tab
-   - Add your environment variables (DATABASE_URL, SECRET_KEY, etc.)
-
-4. Deploy the service:
-   - Click "Create Web Service"
-   - Render will automatically build and deploy your application
-
-#### Option 2: Deploy to Heroku
-
-1. Install the Heroku CLI and log in:
-   ```bash
-   npm install -g heroku
-   heroku login
-   ```
-
-2. Create a new Heroku app:
-   ```bash
-   heroku create agripreserve-api
-   ```
-
-3. Add a Procfile to the root directory:
-   ```
-   web: cd backend && uvicorn api.main:app --host=0.0.0.0 --port=$PORT
-   ```
-
-4. Deploy the application:
-   ```bash
-   git push heroku main
-   ```
-
-### Frontend Deployment
-
-#### Option 1: Deploy to Render
-
-1. Create a new Static Site on Render:
-   - Sign in to your Render account and go to the Dashboard
-   - Click on "New" and select "Static Site"
-   - Connect your GitHub repository
-
-2. Configure the Static Site:
-   - Name: `agripreserve-frontend`
-   - Root Directory: `frontend`
-   - Build Command: `npm install && npm run build`
-   - Publish Directory: `dist`
-
-3. Add Environment Variables:
-   - Click on "Environment" tab
-   - Add `VITE_API_BASE_URL` pointing to your backend service URL
-
-4. Deploy the site:
-   - Click "Create Static Site"
-   - Render will automatically build and deploy your frontend
-
-#### Option 2: Deploy to Netlify
-
-1. Install the Netlify CLI:
-   ```bash
-   npm install -g netlify-cli
-   netlify login
-   ```
-
-2. Build the frontend:
-   ```bash
-   cd frontend
-   npm install
-   npm run build
-   ```
-
-3. Deploy to Netlify:
-   ```bash
-   netlify deploy --prod
-   ```
 
 ### Deployment Details
 
@@ -540,35 +452,6 @@ Render automatically deploys your application when you push to your connected Gi
 
 Render will automatically build and deploy both your backend and frontend whenever changes are pushed to the connected branch.
 
-#### GitHub Actions (Alternative)
-
-If you prefer using GitHub Actions, create a workflow file at `.github/workflows/deploy.yml`:
-
-```yaml
-name: Deploy AgriPreserve
-
-on:
-  push:
-    branches: [ main ]
-
-jobs:
-  tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.8'
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pytest
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Test with pytest
-        run: |
-          pytest
-```
 
 This workflow will run tests on every push to ensure your code is working correctly before Render's automatic deployment takes over.
 
