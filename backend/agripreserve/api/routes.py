@@ -11,7 +11,7 @@ from agripreserve.data.loader import load_datasets
 # Load the datasets
 loss_percentage_df, loss_tonnes_df = load_datasets()
 
-def create_app() -> FastAPI:
+def create_app(allowed_origins: Optional[List[str]] = None) -> FastAPI:
     """Create and configure the FastAPI application."""
     app = FastAPI(
         title="AgriPreserve API",
@@ -22,7 +22,7 @@ def create_app() -> FastAPI:
     # Enable CORS
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=allowed_origins or ["*"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -200,32 +200,29 @@ def create_app() -> FastAPI:
 
     @app.get("/api/crop-comparison")
     def get_crop_comparison():
-        """Compare crops by loss percentage and tonnage"""
-        # Calculate total losses by crop
-        total_losses = {
-            "Maize": loss_tonnes_df["Maize"].sum(),
-            "Rice": loss_tonnes_df["Rice"].sum(),
-            "Sorghum": loss_tonnes_df["Sorghum"].sum(),
-            "Millet": loss_tonnes_df["Millet"].sum()
-        }
+        """Get crop comparison data"""
+        # Calculate total production and loss for each crop
+        crops = ["Maize", "Rice", "Sorghum", "Millet"]
+        comparison = []
         
-        # Calculate average loss percentages by crop
-        avg_percentages = {
-            "Maize": loss_percentage_df["Maize"].mean(),
-            "Rice": loss_percentage_df["Rice"].mean(),
-            "Sorghum": loss_percentage_df[loss_percentage_df["Sorghum"] > 0]["Sorghum"].mean(),
-            "Millet": loss_percentage_df[loss_percentage_df["Millet"] > 0]["Millet"].mean()
-        }
-        
-        # Combine into a single result
-        result = []
-        for crop in ["Maize", "Rice", "Sorghum", "Millet"]:
-            result.append({
+        for crop in crops:
+            # Calculate total loss in tonnes
+            total_loss = loss_tonnes_df[crop].sum()
+            
+            # Calculate average loss percentage
+            avg_percentage = loss_percentage_df[loss_percentage_df[crop] > 0][crop].mean()
+            
+            # Calculate estimated total production
+            # Production = Loss / (Loss Percentage / 100)
+            estimated_production = total_loss / (avg_percentage / 100) if avg_percentage > 0 else 0
+            
+            comparison.append({
                 "crop": crop,
-                "total_loss_tonnes": total_losses[crop],
-                "average_loss_percentage": avg_percentages[crop]
+                "total_loss_tonnes": total_loss,
+                "average_loss_percentage": avg_percentage,
+                "estimated_production_tonnes": estimated_production
             })
         
-        return result
+        return comparison
 
     return app

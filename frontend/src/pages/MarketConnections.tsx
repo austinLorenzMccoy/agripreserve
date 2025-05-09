@@ -8,7 +8,7 @@ const marketOpportunities = [
     buyer: 'FreshMart Supermarkets',
     cropType: 'Tomatoes',
     quantity: '500 kg',
-    price: '$2.30/kg',
+    price: '₦1,050/kg',
     location: 'Urban',
     distance: '15 km',
     deadline: '3 days',
@@ -22,7 +22,7 @@ const marketOpportunities = [
     buyer: 'GreenLeaf Restaurants',
     cropType: 'Mixed Vegetables',
     quantity: '200 kg',
-    price: '$2.80/kg',
+    price: '₦1,280/kg',
     location: 'Urban',
     distance: '8 km',
     deadline: '2 days',
@@ -36,7 +36,7 @@ const marketOpportunities = [
     buyer: 'HarvestCo Processing',
     cropType: 'Potatoes',
     quantity: '2000 kg',
-    price: '$0.95/kg',
+    price: '₦435/kg',
     location: 'Rural',
     distance: '35 km',
     deadline: '7 days',
@@ -64,7 +64,7 @@ const marketOpportunities = [
     buyer: 'EcoJuice Company',
     cropType: 'Apples (Seconds)',
     quantity: '800 kg',
-    price: '$0.75/kg',
+    price: '₦345/kg',
     location: 'Urban',
     distance: '12 km',
     deadline: '4 days',
@@ -97,7 +97,7 @@ const recentTransactions = [
     buyer: 'FreshMart Supermarkets',
     cropType: 'Tomatoes',
     quantity: '450 kg',
-    totalValue: '$1,035',
+    totalValue: '₦472,500',
     status: 'Completed'
   },
   {
@@ -106,7 +106,7 @@ const recentTransactions = [
     buyer: 'GreenLeaf Restaurants',
     cropType: 'Mixed Vegetables',
     quantity: '180 kg',
-    totalValue: '$504',
+    totalValue: '₦230,400',
     status: 'Completed'
   },
   {
@@ -115,18 +115,18 @@ const recentTransactions = [
     buyer: 'EcoJuice Company',
     cropType: 'Apples',
     quantity: '750 kg',
-    totalValue: '$562.50',
+    totalValue: '₦258,750',
     status: 'Completed'
   },
 ];
 
 // Mock data for market price trends
 const marketPriceTrends = [
-  { crop: 'Tomatoes', currentPrice: 2.30, lastWeek: 2.25, lastMonth: 2.40 },
-  { crop: 'Potatoes', currentPrice: 0.95, lastWeek: 0.90, lastMonth: 0.85 },
-  { crop: 'Apples', currentPrice: 1.75, lastWeek: 1.80, lastMonth: 1.90 },
-  { crop: 'Bananas', currentPrice: 1.20, lastWeek: 1.15, lastMonth: 1.10 },
-  { crop: 'Carrots', currentPrice: 1.05, lastWeek: 1.10, lastMonth: 1.15 },
+  { crop: 'Tomatoes', currentPrice: 1050, lastWeek: 1025, lastMonth: 1100 },
+  { crop: 'Potatoes', currentPrice: 435, lastWeek: 410, lastMonth: 390 },
+  { crop: 'Apples', currentPrice: 800, lastWeek: 825, lastMonth: 870 },
+  { crop: 'Bananas', currentPrice: 550, lastWeek: 525, lastMonth: 500 },
+  { crop: 'Carrots', currentPrice: 480, lastWeek: 500, lastMonth: 525 },
 ];
 
 const MarketConnections = () => {
@@ -306,7 +306,7 @@ const MarketConnections = () => {
             <thead>
               <tr className={`${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}>
                 <th className="px-4 py-2 text-left">Crop</th>
-                <th className="px-4 py-2 text-left">Current Price ($/kg)</th>
+                <th className="px-4 py-2 text-left">Current Price (₦/kg)</th>
                 <th className="px-4 py-2 text-left">Last Week</th>
                 <th className="px-4 py-2 text-left">Last Month</th>
                 <th className="px-4 py-2 text-left">Trend</th>
@@ -322,7 +322,7 @@ const MarketConnections = () => {
                 return (
                   <tr key={trend.crop} className={`${darkMode ? 'border-gray-700' : 'border-gray-200'} border-b`}>
                     <td className="px-4 py-3">{trend.crop}</td>
-                    <td className="px-4 py-3">${trend.currentPrice.toFixed(2)}</td>
+                    <td className="px-4 py-3">₦{trend.currentPrice.toLocaleString()}</td>
                     <td className="px-4 py-3">
                       <span className={isPositiveWeek ? 'text-green-500' : 'text-red-500'}>
                         {isPositiveWeek ? '↑' : '↓'} {weekChange}%
@@ -401,32 +401,43 @@ const MarketConnections = () => {
               </p>
             </div>
             
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-2">Your Message</label>
-              <textarea 
-                rows={4} 
-                className={`w-full p-2 rounded border ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
-                placeholder="Introduce yourself and your produce..."
-              ></textarea>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">Your Message</label>
+                <textarea 
+                  rows={4}
+                  className={`w-full p-2 rounded border ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
+                  placeholder="Introduce yourself and specify your interest in this opportunity..."
+                ></textarea>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium mb-2">Available Quantity (kg)</label>
+                <input 
+                  type="number"
+                  className={`w-full p-2 rounded border ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
+                  placeholder="Enter quantity you can supply"
+                />
+              </div>
             </div>
             
-            <div className="flex space-x-2">
-              <button 
-                className={`flex-1 py-2 rounded-lg text-center ${
-                  darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'
-                } text-white`}
-              >
-                Send Message
-              </button>
+            <div className="mt-6 flex space-x-3 justify-end">
               <button 
                 onClick={() => setShowContactModal(false)}
-                className={`flex-1 py-2 rounded-lg text-center border ${
+                className={`px-4 py-2 rounded-lg border ${
                   darkMode 
-                    ? 'border-gray-600 text-gray-400 hover:bg-gray-700' 
-                    : 'border-gray-300 text-gray-600 hover:bg-gray-100'
+                    ? 'border-gray-600 text-gray-300 hover:bg-gray-700' 
+                    : 'border-gray-300 text-gray-700 hover:bg-gray-100'
                 }`}
               >
                 Cancel
+              </button>
+              <button 
+                className={`px-4 py-2 rounded-lg ${
+                  darkMode ? 'bg-green-600 hover:bg-green-700' : 'bg-green-500 hover:bg-green-600'
+                } text-white`}
+              >
+                Send Message
               </button>
             </div>
           </div>

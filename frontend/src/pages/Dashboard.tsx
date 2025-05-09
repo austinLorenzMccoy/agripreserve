@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTheme as useMuiTheme } from '@mui/material/styles';
 import { useTheme } from '../context/ThemeContext';
 import { 
@@ -83,6 +84,7 @@ const Dashboard = () => {
   const muiTheme = useMuiTheme();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
   const [timeRange, setTimeRange] = useState('6months');
+  const navigate = useNavigate();
   
   const handleTimeRangeChange = (event: SelectChangeEvent) => {
     setTimeRange(event.target.value);
@@ -287,6 +289,7 @@ const Dashboard = () => {
                   variant="outlined" 
                   color="primary" 
                   endIcon={<ArrowForwardIcon />}
+                  onClick={() => navigate('/loss-analysis')}
                   sx={{ 
                     borderRadius: 2,
                     textTransform: 'none',
@@ -416,6 +419,7 @@ const Dashboard = () => {
                     variant="outlined" 
                     color="primary" 
                     endIcon={<ArrowForwardIcon />}
+                    onClick={() => navigate('/loss-analysis')}
                     sx={{ 
                       borderRadius: 2,
                       textTransform: 'none',
@@ -538,6 +542,7 @@ const Dashboard = () => {
                   <Button 
                     variant="contained" 
                     color="primary" 
+                    onClick={() => navigate('/storage-solutions')}
                     sx={{ 
                       borderRadius: 2,
                       textTransform: 'none',
@@ -706,6 +711,7 @@ const Dashboard = () => {
                   <Button 
                     variant="contained" 
                     color="primary" 
+                    onClick={() => navigate('/market-connections')}
                     sx={{ 
                       borderRadius: 2,
                       textTransform: 'none',

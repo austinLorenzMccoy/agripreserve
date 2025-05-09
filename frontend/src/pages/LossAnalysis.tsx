@@ -1,14 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { Box, Typography, Paper, Grid } from '@mui/material';
+
+// Import a more robust charting library
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 // Mock data for loss analysis
 const lossFactors = [
-  { factor: 'Poor Storage Conditions', percentage: 35, color: 'bg-red-500' },
-  { factor: 'Transportation Damage', percentage: 25, color: 'bg-orange-500' },
-  { factor: 'Pest Infestation', percentage: 15, color: 'bg-yellow-500' },
-  { factor: 'Harvest Damage', percentage: 12, color: 'bg-green-500' },
-  { factor: 'Processing Inefficiency', percentage: 8, color: 'bg-blue-500' },
-  { factor: 'Other Factors', percentage: 5, color: 'bg-purple-500' },
+  { factor: 'Poor Storage Conditions', percentage: 35, color: 'bg-red-500', barColor: '#F44336' },
+  { factor: 'Transportation Damage', percentage: 25, color: 'bg-orange-500', barColor: '#FF9800' },
+  { factor: 'Pest Infestation', percentage: 15, color: 'bg-yellow-500', barColor: '#FFEB3B' },
+  { factor: 'Harvest Damage', percentage: 12, color: 'bg-green-500', barColor: '#4CAF50' },
+  { factor: 'Processing Inefficiency', percentage: 8, color: 'bg-blue-500', barColor: '#2196F3' },
+  { factor: 'Other Factors', percentage: 5, color: 'bg-purple-500', barColor: '#9C27B0' },
 ];
 
 const monthlyLossData = [
@@ -24,6 +28,12 @@ const LossAnalysis = () => {
   const { darkMode } = useTheme();
   const [selectedCrop, setSelectedCrop] = useState('all');
   const [timeFrame, setTimeFrame] = useState('6months');
+  
+  // Prepare data for recharts
+  const chartData = monthlyLossData.map(item => ({
+    name: item.month,
+    loss: item.loss
+  }));
   
   return (
     <div className="space-y-6">
@@ -73,7 +83,7 @@ const LossAnalysis = () => {
         <div className={`p-6 rounded-lg shadow ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
           <h3 className="text-lg font-medium text-gray-500">Financial Impact</h3>
           <div className="mt-2 flex items-baseline">
-            <p className="text-3xl font-semibold">$34,250</p>
+            <p className="text-3xl font-semibold">₦15,750,000</p>
             <p className="ml-2 text-sm text-red-500">+2.4%</p>
           </div>
           <p className="mt-4 text-sm text-gray-500">Estimated loss value</p>
@@ -108,23 +118,54 @@ const LossAnalysis = () => {
         </div>
       </div>
       
-      {/* Monthly Loss Trend */}
+      {/* Monthly Loss Trend - Using Recharts for better visualization */}
       <div className={`p-6 rounded-lg shadow ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <h2 className="text-xl font-semibold mb-4">Monthly Loss Trend</h2>
-        <div className="h-64 flex items-end space-x-4">
-          {monthlyLossData.map((item) => (
-            <div key={item.month} className="flex flex-col items-center flex-1">
-              <div 
-                className="w-full bg-red-500 rounded-t" 
-                style={{ height: `${item.loss * 2}px` }}
-              ></div>
-              <div className="mt-2 text-sm">{item.month}</div>
-            </div>
-          ))}
+        <div style={{ width: '100%', height: 300 }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={chartData}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? "#444" : "#ccc"} />
+              <XAxis 
+                dataKey="name" 
+                tick={{ fill: darkMode ? '#e0e0e0' : '#333' }}
+              />
+              <YAxis 
+                tick={{ fill: darkMode ? '#e0e0e0' : '#333' }}
+                label={{ 
+                  value: 'Loss %', 
+                  angle: -90, 
+                  position: 'insideLeft',
+                  style: { textAnchor: 'middle', fill: darkMode ? '#e0e0e0' : '#333' }
+                }}
+              />
+              <Tooltip 
+                contentStyle={{ 
+                  backgroundColor: darkMode ? '#333' : '#fff',
+                  color: darkMode ? '#e0e0e0' : '#333',
+                  border: `1px solid ${darkMode ? '#555' : '#ccc'}`
+                }}
+              />
+              <Legend wrapperStyle={{ color: darkMode ? '#e0e0e0' : '#333' }} />
+              <Bar 
+                dataKey="loss" 
+                name="Loss %" 
+                fill="#F44336" 
+                radius={[4, 4, 0, 0]}
+              />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       </div>
       
-      {/* Recommendations */}
+      {/* Recommendations - Fixed layout to prevent overlapping */}
       <div className={`p-6 rounded-lg shadow ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <h2 className="text-xl font-semibold mb-4">Recommendations</h2>
         <div className="space-y-4">
