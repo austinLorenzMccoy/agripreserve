@@ -451,14 +451,55 @@ AgriPreserve consists of two main components that need to be deployed: the backe
    netlify deploy --prod
    ```
 
+### Live Deployments
+
+AgriPreserve is deployed and accessible online:
+
+- **Frontend**: [https://agripreserve-frontend.onrender.com](https://agripreserve-frontend.onrender.com)
+- **Backend API**: [https://agripreserve-backend.onrender.com](https://agripreserve-backend.onrender.com)
+
+### Deployment Configuration
+
+#### Frontend Deployment (Render)
+
+The frontend is deployed on Render with the following configuration:
+
+- **Build Command**: `npm install && npm run build`
+- **Start Command**: `npm run serve`
+- **Environment Variables**: None required for basic functionality
+
+The Vite configuration includes proper settings for the production environment, including CORS configuration to allow connections from the Render domain.
+
+#### Backend Deployment (Render)
+
+The backend is deployed on Render with the following configuration:
+
+- **Root Directory**: `backend`
+- **Build Command**: `pip install -e .`
+- **Start Command**: `python render.py`
+- **Environment Variables**:
+  - `PYTHON_VERSION=3.11.11`
+  - `PORT=10000`
+  - Plus all the environment variables for DAGsHub and MLflow integration
+
 ### Environment Configuration
 
 Make sure to set the following environment variables for your deployments:
 
 #### Backend Environment Variables
-- `DATABASE_URL`: Connection string for your database
-- `SECRET_KEY`: Secret key for JWT token generation
-- `ALLOWED_ORIGINS`: Comma-separated list of allowed CORS origins
+- `PYTHON_VERSION`: Full Python version (e.g., `3.11.11`)
+- `PORT`: Port for the backend server (e.g., `10000`)
+- `DAGSHUB_USERNAME`: Your DAGsHub username
+- `DAGSHUB_TOKEN`: Your DAGsHub token
+- `DAGSHUB_REPO`: Your DAGsHub repository name
+- `MLFLOW_TRACKING_URI`: MLflow tracking URI
+- `MLFLOW_TRACKING_USERNAME`: MLflow tracking username
+- `MLFLOW_TRACKING_PASSWORD`: MLflow tracking password
+- `S3_BUCKET_NAME`: S3 bucket name for storage
+- `S3_ENDPOINT_URL`: S3 endpoint URL
+- `S3_ACCESS_KEY_ID`: S3 access key ID
+- `S3_SECRET_ACCESS_KEY`: S3 secret access key
+- `S3_REGION`: S3 region
 
 #### Frontend Environment Variables
 - `VITE_API_BASE_URL`: URL of your deployed backend API
